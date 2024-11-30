@@ -1,0 +1,37 @@
+/* src/App/pages/JobListingsPage.css */
+.job-listings-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.job-card {
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.job-description {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.apply-button {
+    margin-top: 10px;
+}
+
+.skills-container {
+    margin-top: 8px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.skill-chip {
+    background-color: #e3f2fd;
+    color: #1e88e5;
+}
