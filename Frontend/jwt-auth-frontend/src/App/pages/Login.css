@@ -1,6 +1,7 @@
 /* src/pages/Login.css */
 
-body {
+/* Ensure the styles apply only to the login page */
+body.login-page {
     font-family: 'Arial', sans-serif;
     background-color: #f4f7fc;
     margin: 0;
@@ -59,7 +60,7 @@ h2 {
 .login-button {
     width: 100%;
     padding: 12px 20px;
-    background-color: #0066cc;  /* Blue color */
+    background-color: #0066cc; /* Blue color */
     border: none;
     color: white;
     font-size: 16px;
@@ -67,17 +68,18 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     margin: 10px 0;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .login-button:hover {
-    background-color: #005bb5;  /* Darker blue on hover */
+    background-color: #005bb5; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
 .secondary-button {
     width: 100%;
     padding: 12px 20px;
-    background-color: #0066cc;  /* Blue color for Sign Up and Forgot Password */
+    background-color: #0066cc; /* Blue color for Sign Up and Forgot Password */
     border: none;
     color: white;
     font-size: 16px;
@@ -85,15 +87,22 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     margin: 10px 0;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .secondary-button:hover {
-    background-color: #005bb5;  /* Darker blue on hover */
+    background-color: #005bb5; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
 .error-message {
     color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: green;
     font-size: 14px;
     margin-top: 10px;
 }

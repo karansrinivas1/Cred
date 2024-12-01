@@ -1,5 +1,5 @@
 // src/pages/Login.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Added useEffect here
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -14,10 +14,18 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // Add the login-page class to body
+    useEffect(() => {
+        document.body.classList.add('login-page');
+        return () => {
+            document.body.classList.remove('login-page');
+        };
+    }, []);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
-        setLoading(true);  // Show loading indicator
+        setLoading(true); // Show loading indicator
 
         try {
             // Make API call to login
@@ -30,13 +38,15 @@ const Login = () => {
             const { firstName, lastName, username: userUsername, email, userType } = response.data.user;
 
             // Dispatch user data to Redux store
-            dispatch(setUser({
-                username: userUsername,  // Store username
-                firstName,               // Store first name
-                lastName,                // Store last name
-                email,                   // Store email
-                type: userType           // Store user type
-            }));
+            dispatch(
+                setUser({
+                    username: userUsername, // Store username
+                    firstName, // Store first name
+                    lastName, // Store last name
+                    email, // Store email
+                    type: userType, // Store user type
+                })
+            );
 
             // Redirect based on user role
             if (userType === 2) {

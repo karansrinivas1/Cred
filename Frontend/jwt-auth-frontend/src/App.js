@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HomePage from './App/HOME/HomePage';
 import AboutPage from './App/ABOUT/AboutPage';
-import JobListingsPage from './App/JOBLISTING/JobListingsPage';
+import Cards from './App/Cards/CreditCardManager';
 import ContactPage from './App/CONTACT/ContactPage';
 import CompanyShowcasePage from './App/COMPANYSHOWCASE/CompanyShowcasePage';
 import Login from './App/pages/Login';
@@ -61,10 +61,10 @@ function App() {
                         }
                     />
                     <Route
-                        path="/job-listings"
+                        path="/cards"
                         element={
                             <RoleBasedRoute allowedRoles={[2]}>
-                                <JobListingsPage />
+                                <Cards />
                             </RoleBasedRoute>
                         }
                     />

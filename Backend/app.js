@@ -5,6 +5,8 @@ const forgotPasswordRoutes = require('./api/routes/forgotPasswordRoutes');
 const ResetPasswordRoutes = require('./api/routes/resetPasswordRoute');
 const cors = require('cors');
 require('dotenv').config();  // Load environment variables
+const creditCardRoutes = require('./api/routes/CreditCardRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +25,7 @@ app.use(express.json());
 app.use('/user', userRoutes);  // User-related routes
 app.use('/api', forgotPasswordRoutes); // Forgot password route
 app.use('/api', ResetPasswordRoutes); // Forgot password route
+app.use('/api/credit-cards', creditCardRoutes);
 
 // MongoDB connection (ensure write concern is set)
 const uri = process.env.MONGO_URI; // Mongo URI from .env file
