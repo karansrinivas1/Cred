@@ -13,6 +13,8 @@ import MainLayout from './components/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleBasedRoute from './components/RoleBasedRoute';
 import SignUp from './App/pages/SignUp';
+import ForgotPassword from './App/pages/ForgotPassword';
+import ResetPassword  from './App/pages/ResetPassword';
 
 function App() {
     const isAuthenticated = () => {
@@ -33,8 +35,12 @@ function App() {
         <Router>
             <Routes>
                 {/* Public Route */}
+                <Route path="/reset-password/:token" element={<ResetPassword/>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/forgot-password" element={<ForgotPassword/>} />
+               
+              
 
                 {/* Protected Routes under MainLayout */}
                 <Route element={<MainLayout onLogout={handleLogout} />}>
