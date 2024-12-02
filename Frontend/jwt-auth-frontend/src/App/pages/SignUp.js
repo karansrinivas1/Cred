@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './Signup.css';
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');
@@ -14,10 +14,14 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    
+
     const handleSignUp = async (e) => {
         e.preventDefault();
         setError('');
         setLoading(true);  // Show loading indicator
+
+        
 
         try {
             // Prepare user data for registration
