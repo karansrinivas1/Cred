@@ -18,7 +18,7 @@ const Navbar = ({ onLogout }) => {
         <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    Job Portal
+                    Cred
                 </Typography>
 
                 {/* Render links based on user type */}
