@@ -1,76 +1,60 @@
-// src/pages/Login.js
-import React, { useState, useEffect } from 'react'; // Added useEffect here
-import api from '../../services/api';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/slices/userSlice';
-import './Login.css';
+import React, { useState } from "react";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slices/userSlice";
+import LoadingAnimation from "../../components/LoadingAnimation";
+import "./Login.css";
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showAnimation, setShowAnimation] = useState(false); // New state for animation
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // Add the login-page class to body
-    useEffect(() => {
-        document.body.classList.add('login-page');
-        return () => {
-            document.body.classList.remove('login-page');
-        };
-    }, []);
-
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError('');
-        setLoading(true); // Show loading indicator
+        setError("");
+        setLoading(true);
 
         try {
-            // Make API call to login
-            const response = await api.post('/user/login', { username, password });
+            const response = await api.post("/user/login", { username, password });
+            localStorage.setItem("token", response.data.token);
 
-            // Save JWT token in localStorage
-            localStorage.setItem('token', response.data.token);
+            const { firstName, lastName, username: userUsername, email, userType } =
+                response.data.user;
 
-            // Extract user details from response
-            const { firstName, lastName, username: userUsername, email, userType } = response.data.user;
-
-            // Dispatch user data to Redux store
             dispatch(
                 setUser({
-                    username: userUsername, // Store username
-                    firstName, // Store first name
-                    lastName, // Store last name
-                    email, // Store email
-                    type: userType, // Store user type
+                    username: userUsername,
+                    firstName,
+                    lastName,
+                    email,
+                    type: userType,
                 })
             );
 
-            // Redirect based on user role
-            if (userType === 2) {
-                navigate('/'); // Redirect employee to Job Listings
-            } else if (userType === 1) {
-                navigate('/admin/employees'); // Redirect admin to Employee List
-            } else {
-                throw new Error('Invalid user type');
-            }
+            setShowAnimation(true); // Show the animation
+            setTimeout(() => {
+                if (userType === 2) {
+                    navigate("/"); // Redirect to home page
+                } else if (userType === 1) {
+                    navigate("/admin/employees"); // Redirect to admin page
+                }
+            }, 3000); // Match animation duration
         } catch (err) {
-            // Display error if the credentials are invalid
-            setError('Invalid credentials');
+            setError("Invalid credentials");
         } finally {
-            setLoading(false); // Stop loading indicator
+            setLoading(false);
         }
     };
 
-    const handleSignUp = () => {
-        navigate('/signup'); // Redirect to sign-up page
-    };
-
-    const handleForgotPassword = () => {
-        navigate('/forgot-password'); // Redirect to forgot password page
-    };
+    if (showAnimation) {
+        return <LoadingAnimation onComplete={() => setShowAnimation(false)} />;
+    }
 
     return (
         <div className="login-container">
@@ -94,15 +78,18 @@ const Login = () => {
                         required
                     />
                     <button type="submit" className="login-button" disabled={loading}>
-                        {loading ? 'Logging in...' : 'Login'}
+                        {loading ? "Logging in..." : "Login"}
                     </button>
                 </form>
                 {error && <p className="error-message">{error}</p>}
                 <div className="additional-actions">
-                    <button className="link-button" onClick={handleSignUp}>
+                    <button className="link-button" onClick={() => navigate("/signup")}>
                         Don't have an account? Sign Up
                     </button>
-                    <button className="link-button" onClick={handleForgotPassword}>
+                    <button
+                        className="link-button"
+                        onClick={() => navigate("/forgot-password")}
+                    >
                         Forgot Password?
                     </button>
                 </div>
