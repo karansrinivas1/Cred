@@ -1,5 +1,4 @@
-// services/openaiService.js
-const { OpenAI } = require('openai');  // Use require instead of import
+const { OpenAI } = require('openai');  
 require('dotenv').config();
 
 // Create an OpenAI instance
@@ -14,7 +13,9 @@ const getChatResponse = async (messages) => {
       model: 'gpt-3.5-turbo',  // Or whichever model you're using
       messages: messages,
     });
-    return response.choices[0].message.content;  // Extract response message
+    
+    // Ensure you're extracting the response correctly
+    return response.choices[0].message.content;  // Correctly access the message content
   } catch (error) {
     console.error('Error getting chat response from OpenAI:', error);
     throw new Error('Error fetching chat response');
