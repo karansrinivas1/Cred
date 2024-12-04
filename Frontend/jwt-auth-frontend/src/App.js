@@ -5,7 +5,7 @@ import HomePage from './App/HOME/HomePage';
 import AboutPage from './App/ABOUT/AboutPage';
 import Cards from './App/Cards/CreditCardManager';
 import ContactPage from './App/CONTACT/ContactPage';
-import CompanyShowcasePage from './App/COMPANYSHOWCASE/CompanyShowcasePage';
+import ChatAi from './App/QuickChat/ChatAi';
 import Login from './App/pages/Login';
 import AddJobPage from './App/ADMIN/AddJobPage';
 import EmployeeListPage from './App/ADMIN/EmployeeListPage';
@@ -77,10 +77,10 @@ function App() {
                         }
                     />
                     <Route
-                        path="/company-showcase"
+                        path="/ChatAi"
                         element={
                             <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                <CompanyShowcasePage />
+                                <ChatAi />
                             </ProtectedRoute>
                         }
                     />

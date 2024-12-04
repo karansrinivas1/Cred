@@ -35,7 +35,7 @@ const Navbar = ({ onLogout }) => {
                         <Button color="inherit" component={Link} to="/about">About</Button>
                         <Button color="inherit" component={Link} to="/cards">Cards</Button>
                         <Button color="inherit" component={Link} to="/contact">Contact</Button>
-                        <Button color="inherit" component={Link} to="/company-showcase">Company Showcase</Button>
+                        <Button color="inherit" component={Link} to="/ChatAi">QuikChat</Button>
                     </>
                 ) : (
                     // Links for unauthenticated users
@@ -43,7 +43,7 @@ const Navbar = ({ onLogout }) => {
                         <Button color="inherit" component={Link} to="/">Home</Button>
                         <Button color="inherit" component={Link} to="/about">About</Button>
                         <Button color="inherit" component={Link} to="/contact">Contact</Button>
-                        <Button color="inherit" component={Link} to="/company-showcase">Company Showcase</Button>
+                        <Button color="inherit" component={Link} to="/chatAi">Chat</Button>
                     </>
                 )}
 

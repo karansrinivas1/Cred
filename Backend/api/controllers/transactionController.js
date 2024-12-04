@@ -83,9 +83,7 @@ const deleteAllTransactions = async (req, res) => {
 
 const getSpendingTrend = async (req, res) => {
     const { username, period } = req.body; // Use req.body for POST data
-    console.log("Received username:", username);
-    console.log("Requested period:", period);
-
+   
     try {
         // Define the match criteria based on username
         let match = { username };
@@ -136,6 +134,25 @@ const getSpendingTrend = async (req, res) => {
     }
 };
 
+
+const getTransactionsByUsernameOpenAi = async (username) => {
+    try {
+
+        console.log("username:",username);
+        // Find transactions by username
+        const transactions = await CardTransaction.find({ username });
+
+        if (!transactions || transactions.length === 0) {
+            throw new Error('No transactions found for this username');
+        }
+
+        return transactions; // Return the transactions if found
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error fetching transactions');
+    }
+};
+
 // Use POST for the spending-trend route
 
 
@@ -147,5 +164,6 @@ module.exports = {
     uploadCSV,
     getTransactionsByUsername,
     deleteAllTransactions,
-    getSpendingTrend
+    getSpendingTrend,
+    getTransactionsByUsernameOpenAi
 };
