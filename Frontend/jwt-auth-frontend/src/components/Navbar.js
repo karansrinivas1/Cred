@@ -32,16 +32,16 @@ const Navbar = ({ onLogout }) => {
                     // Employee-specific links
                     <>
                         <Button color="inherit" component={Link} to="/">Home</Button>
-                        <Button color="inherit" component={Link} to="/about">About</Button>
                         <Button color="inherit" component={Link} to="/cards">Cards</Button>
                         <Button color="inherit" component={Link} to="/contact">Contact</Button>
                         <Button color="inherit" component={Link} to="/ChatAi">QuikChat</Button>
+                        <Button color="inherit" component={Link} to="/profile">Profile</Button>
                     </>
                 ) : (
                     // Links for unauthenticated users
                     <>
                         <Button color="inherit" component={Link} to="/">Home</Button>
-                        <Button color="inherit" component={Link} to="/about">About</Button>
+                        <Button color="inherit" component={Link} to="/profile">Profile</Button>
                         <Button color="inherit" component={Link} to="/contact">Contact</Button>
                         <Button color="inherit" component={Link} to="/chatAi">Chat</Button>
                     </>

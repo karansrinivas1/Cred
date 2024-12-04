@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HomePage from './App/HOME/HomePage';
-import AboutPage from './App/ABOUT/AboutPage';
+import Profile from './App/Profile/Profile';
 import Cards from './App/Cards/CreditCardManager';
 import ContactPage from './App/CONTACT/ContactPage';
 import ChatAi from './App/QuickChat/ChatAi';
@@ -53,10 +53,10 @@ function App() {
                         }
                     />
                     <Route
-                        path="/about"
+                        path="/profile"
                         element={
                             <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                <AboutPage />
+                                <Profile />
                             </ProtectedRoute>
                         }
                     />
