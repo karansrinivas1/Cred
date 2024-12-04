@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
+import { Container, Typography, TextField, Box, CircularProgress, IconButton } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const UserTransactionChat = () => {
   const { user } = useSelector((state) => state.user);
@@ -39,18 +40,31 @@ const UserTransactionChat = () => {
 
   return (
     <Container>
-      <Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 4 }}>
         <Typography variant="h6" gutterBottom>
           User Transaction Chat
         </Typography>
 
-        <Box sx={{ marginBottom: 2 }}>
-          <Typography variant="body1">Chat:</Typography>
-          <Box sx={{ minHeight: 200, border: '1px solid #ddd', padding: 2, overflowY: 'auto' }}>
-            {response && <Typography variant="body2">{response}</Typography>}
+        {/* Chat Messages */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginBottom: 2 }}>
+          {/* User's query */}
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 1 }}>
+            <Typography variant="body2" sx={{ background: '#f0f0f0', padding: '8px 12px', borderRadius: '8px' }}>
+              {query}
+            </Typography>
+          </Box>
+          
+          {/* ChatGPT's response */}
+          <Box sx={{ marginTop: 1 }}>
+            {response && (
+              <Typography variant="body2" sx={{ background: '#e0f7fa', padding: '8px 12px', borderRadius: '8px' }}>
+                {response}
+              </Typography>
+            )}
           </Box>
         </Box>
 
+        {/* Input Field */}
         <TextField
           label="Ask a Question"
           variant="outlined"
@@ -60,15 +74,26 @@ const UserTransactionChat = () => {
           sx={{ marginBottom: 2 }}
         />
 
-        <Button
-          variant="contained"
-          onClick={handleSubmit}
-          fullWidth
-          sx={{ marginTop: 2 }}
-        >
-          {isLoading ? <CircularProgress size={24} /> : 'Send'}
-        </Button>
+        {/* Submit Button */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <IconButton
+            color="primary"
+            onClick={handleSubmit}
+            disabled={isLoading}
+            sx={{
+              padding: '12px',
+              background: '#00796b',
+              borderRadius: '50%',
+              ':hover': {
+                backgroundColor: '#004d40', // Hover effect for better UX
+              },
+            }}
+          >
+            {isLoading ? <CircularProgress size={24} color="inherit" /> : <ArrowForwardIcon />}
+          </IconButton>
+        </Box>
 
+        {/* Error Message */}
         {error && <Typography color="error" sx={{ marginTop: 2 }}>{error}</Typography>}
       </Box>
     </Container>
