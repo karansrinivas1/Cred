@@ -142,9 +142,6 @@ const getTransactionsByUsernameOpenAi = async (username) => {
         // Find transactions by username
         const transactions = await CardTransaction.find({ username });
 
-        if (!transactions || transactions.length === 0) {
-            throw new Error('No transactions found for this username');
-        }
 
         return transactions; // Return the transactions if found
     } catch (error) {
