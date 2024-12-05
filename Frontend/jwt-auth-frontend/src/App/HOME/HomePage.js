@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Typography, Box, CircularProgress, Grid, ButtonGroup, Button, Card, CardContent, CardActions } from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import axios from 'axios';
@@ -8,6 +9,9 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const HomePage = () => {
+    const { user } = useSelector((state) => state.user);  // Getting user details from Redux store
+    const username = user?.username;  // Extracting username from user object in Redux store
+
     const [spendingData, setSpendingData] = useState(null);
     const [recentTransactions, setRecentTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -29,11 +33,15 @@ const HomePage = () => {
         const fetchData = async () => {
             try {
                 const period = periodMapping[selectedPeriod]; // Convert the selected period to match backend format
+
+                // Fetch spending trend data for the logged-in user
                 const spendingResponse = await axios.post('http://localhost:3000/api/transactions/spending-trend', {
-                    username: 'userone',
+                    username: username,  // Use dynamic username from Redux
                     period: period
                 });
-                const transactionsResponse = await axios.get('http://localhost:3000/api/transactions/userone');
+
+                // Fetch recent transactions for the logged-in user
+                const transactionsResponse = await axios.get(`http://localhost:3000/api/transactions/${username}`); // Use dynamic username here
                 
                 // Set the fetched data
                 setSpendingData(spendingResponse.data);
@@ -45,8 +53,10 @@ const HomePage = () => {
             }
         };
 
-        fetchData();
-    }, [selectedPeriod]);
+        if (username) {
+            fetchData();
+        }
+    }, [selectedPeriod, username]);
 
     // Handle empty or null data to display an empty graph
     const formatSpendingData = (data) => {
