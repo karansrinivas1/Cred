@@ -49,12 +49,12 @@ async function getAccount(req, res) {
   
 
   async function updateAccountBalance(req, res) {
-    const { username } = req.params;
-    const { accountBalance } = req.body;  // Expecting the new account balance in the request body
-  
+    const { username } = req.params;  // Get the username from request params
+    const { accountNumber, accountBalance } = req.body;  // Get accountNumber and new accountBalance from request body
+
     try {
-      // Find the account by username
-      const account = await Account.findOne({ username });
+      // Find the account by username and accountNumber
+      const account = await Account.findOne({ username, accountNumber });  // Query by both username and accountNumber
       
       // If the account doesn't exist, return an error
       if (!account) {
@@ -72,8 +72,7 @@ async function getAccount(req, res) {
       console.error(error);
       res.status(500).json({ error: 'Server error. Please try again later.' });
     }
-  }
-  
-  
+}
+
 
 module.exports = { createAccount ,getAccount,updateAccountBalance};
