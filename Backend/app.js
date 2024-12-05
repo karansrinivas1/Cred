@@ -10,6 +10,9 @@ const creditCardRoutes = require('./api/routes/CreditCardRoutes');
 const transactionRoutes = require('./api/routes/transactionRoutes');
 const openaiRoutes = require('./api/routes/openaiRoutes'); // Import the new OpenAI routes
 const socketIo = require('socket.io');
+const accountRoutes = require('./api/routes/accountRoutes');
+const billRoutes = require('./api/routes/billRoutes');
+
 
 // Initialize express app
 const app = express();
@@ -34,6 +37,8 @@ app.use('/api', ResetPasswordRoutes); // Forgot password route
 app.use('/api/credit-cards', creditCardRoutes);
 app.use('/api/', transactionRoutes); // Transactions-related routes
 app.use('/api/openai', openaiRoutes); // OpenAI routes for handling AI queries
+app.use('/api/account', accountRoutes);
+app.use('/api/bills', billRoutes);
 
 // MongoDB connection (ensure write concern is set)
 const uri = process.env.MONGO_URI; // Mongo URI from .env file

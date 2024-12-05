@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import HomePage from './App/HOME/HomePage';
 import Profile from './App/Profile/Profile';
 import Cards from './App/Cards/CreditCardManager';
-import ContactPage from './App/CONTACT/ContactPage';
+import BillPayment from './App/BILLPAYMENT/BillPayment';
 import ChatAi from './App/QuickChat/ChatAi';
 import Login from './App/pages/Login';
 import AddJobPage from './App/ADMIN/AddJobPage';
@@ -69,10 +69,10 @@ function App() {
                         }
                     />
                     <Route
-                        path="/contact"
+                        path="/billpayment"
                         element={
                             <ProtectedRoute isAuthenticated={isAuthenticated}>
-                                <ContactPage />
+                                <BillPayment />
                             </ProtectedRoute>
                         }
                     />
