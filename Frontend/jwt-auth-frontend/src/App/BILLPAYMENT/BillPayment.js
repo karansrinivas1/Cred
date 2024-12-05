@@ -22,22 +22,22 @@ const BillPaymentPage = () => {
   const [error, setError] = useState(''); // Unified error state
 
   // Fetch all bills summary and accounts on page load
+  const fetchBillsAndAccounts = async () => {
+    try {
+      const billResponse = await axios.get(`http://localhost:3000/api/bills/getSummary/${username}`);  // Fetch bill summary (bill_id, pending_amount)
+      const accountResponse = await axios.get(`http://localhost:3000/api/account/getAccount/${username}`); // Fetch accounts
+
+      setBills(billResponse.data.bills);  // Set the bills in state
+      setAccounts(accountResponse.data.accounts || []);  // Access the 'accounts' key in the response and set the accounts in state
+    } catch (err) {
+      console.error('Error fetching bills or accounts:', err);
+      setError('Failed to fetch bills or accounts');
+    }
+  };
+
   useEffect(() => {
-    const fetchBillsAndAccounts = async () => {
-      try {
-        const billResponse = await axios.get(`http://localhost:3000/api/bills/getSummary/${username}`);  // Fetch bill summary (bill_id, pending_amount)
-        const accountResponse = await axios.get(`http://localhost:3000/api/account/getAccount/${username}`); // Fetch accounts
-
-        setBills(billResponse.data.bills);  // Set the bills in state
-        setAccounts(accountResponse.data.accounts || []);  // Access the 'accounts' key in the response and set the accounts in state
-      } catch (err) {
-        console.error('Error fetching bills or accounts:', err);
-        setError('Failed to fetch bills or accounts');
-      }
-    };
-
     if (username) {
-      fetchBillsAndAccounts();
+      fetchBillsAndAccounts();  // Initial fetch on page load
     }
   }, [username]);
 
@@ -129,6 +129,10 @@ const BillPaymentPage = () => {
       setOpen(false);
       setPaymentAmount('');
       setBills((prevBills) => prevBills.filter((bill) => bill.bill_id !== selectedBill));  // Remove paid bill from the list
+
+      // Reload the bill summary after the payment has been processed
+      fetchBillsAndAccounts();
+
     } catch (err) {
       console.error('Error processing payment:', err);
       setLoading(false);
