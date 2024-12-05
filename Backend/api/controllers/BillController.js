@@ -53,9 +53,9 @@ async function getBill(req, res) {
   
 
   // controllers/BillController.js
-async function updateBill(req, res) {
+  async function updateBill(req, res) {
     const { username, bill_id } = req.params;
-    const { payment_amount, transactionType } = req.body;  // Payment amount and transaction type
+    const { payment_amount } = req.body;  // Only using payment amount
   
     try {
       const bill = await Bill.findOne({ bill_id, username });
@@ -71,16 +71,7 @@ async function updateBill(req, res) {
         return res.status(400).json({ error: 'Payment exceeds the pending amount' });
       }
   
-      // Add a new transaction record
-      const newTransaction = {
-        transaction_id: `T${Date.now()}`,  // Generate a unique transaction ID (could use UUID or similar in production)
-        amount: payment_amount,
-        description: 'Payment made',
-        transactionType: transactionType,  // e.g., 'payment'
-        transactionDate: new Date(),
-      };
-  
-      bill.transactions.push(newTransaction);
+      // Update the bill with the new pending amount
       bill.pending_amount = newPendingAmount;
   
       // If fully paid, update status
@@ -88,6 +79,7 @@ async function updateBill(req, res) {
         bill.status = 'paid';
       }
   
+      // Save the updated bill
       await bill.save();
       res.json({ message: 'Bill updated successfully', bill });
     } catch (error) {
@@ -95,7 +87,6 @@ async function updateBill(req, res) {
       res.status(500).json({ error: 'Error updating bill' });
     }
   }
-  
 
   async function deleteBill(req, res) {
     const { username, bill_id } = req.params;
