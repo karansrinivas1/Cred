@@ -1,8 +1,13 @@
-// src/pages/SignUp.js
 import React, { useState } from 'react';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
+
+// Password validation function using the same regex as backend
+const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:"<>?])(?=.{8,})/;
+    return passwordRegex.test(password);
+};
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');
@@ -12,16 +17,21 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [passwordError, setPasswordError] = useState('');  // Store password error message
     const navigate = useNavigate();
-
-    
 
     const handleSignUp = async (e) => {
         e.preventDefault();
         setError('');
+        setPasswordError(''); // Reset password error
         setLoading(true);  // Show loading indicator
 
-        
+        // Validate password
+        if (!validatePassword(password)) {
+            setPasswordError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+            setLoading(false);  // Hide loading indicator
+            return;
+        }
 
         try {
             // Prepare user data for registration
@@ -92,6 +102,9 @@ const SignUp = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    {passwordError && (
+                        <p className="error-message">{passwordError}</p>
+                    )}
                     <button type="submit" className="login-button" disabled={loading}>
                         {loading ? 'Signing Up...' : 'Sign Up'}
                     </button>

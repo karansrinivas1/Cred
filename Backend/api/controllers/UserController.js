@@ -1,9 +1,24 @@
 const { registerUser, loginUser, getUserByUsername, editUserByUsername, deleteUserByUsername, getAllUsersFromDb } = require('../services/UserService');
 
 // Handle user registration
+// Password validation function
+function validatePassword(password) {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:"<>?])(?=.{8,})/;
+  return passwordRegex.test(password);
+}
+
 async function register(req, res) {
+  const { password } = req.body;  // Extract the password from the request body
+  
+  // Validate the password
+  if (!validatePassword(password)) {
+    return res.status(400).json({
+      error: 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+    });
+  }
+
   try {
-    const user = await registerUser(req.body);
+    const user = await registerUser(req.body);  // Call your existing registerUser function
     res.status(201).json({ message: 'User registered successfully', user });
   } catch (error) {
     res.status(400).json({ error: error.message });
