@@ -25,8 +25,12 @@ const Navbar = ({ onLogout }) => {
                 {user?.type === 1 ? (
                     // Admin-specific links
                     <>
-                        <Button color="inherit" component={Link} to="/admin/employees">Employee List</Button>
-                        <Button color="inherit" component={Link} to="/admin/add-job">Add Job</Button>
+                        <Button color="inherit" component={Link} to="/admin/user">UserList</Button>
+                        <Button color="inherit" component={Link} to="/">Home</Button>
+                        <Button color="inherit" component={Link} to="/cards">Cards</Button>
+                        <Button color="inherit" component={Link} to="/billpayment">BillPayment</Button>
+                        <Button color="inherit" component={Link} to="/ChatAi">QuikChat</Button>
+                        <Button color="inherit" component={Link} to="/profile">Profile</Button>
                     </>
                 ) : user?.type === 2? (
                     // Employee-specific links

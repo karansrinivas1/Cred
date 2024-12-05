@@ -7,8 +7,8 @@ import Cards from './App/Cards/CreditCardManager';
 import BillPayment from './App/BILLPAYMENT/BillPayment';
 import ChatAi from './App/QuickChat/ChatAi';
 import Login from './App/pages/Login';
-import AddJobPage from './App/ADMIN/AddJobPage';
-import EmployeeListPage from './App/ADMIN/EmployeeListPage';
+
+import AdminUserList from './App/ADMIN/AdminUserList';
 import MainLayout from './components/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleBasedRoute from './components/RoleBasedRoute';
@@ -63,9 +63,10 @@ function App() {
                     <Route
                         path="/cards"
                         element={
-                            <RoleBasedRoute allowedRoles={[2]}>
+                            <ProtectedRoute isAuthenticated={isAuthenticated}>
                                 <Cards />
-                            </RoleBasedRoute>
+                            </ProtectedRoute>    
+                           
                         }
                     />
                     <Route
@@ -86,19 +87,12 @@ function App() {
                     />
 
                     {/* Admin-Specific Routes */}
+                   
                     <Route
-                        path="/admin/add-job"
+                        path="/admin/user"
                         element={
                             <RoleBasedRoute allowedRoles={[1]}>
-                                <AddJobPage />
-                            </RoleBasedRoute>
-                        }
-                    />
-                    <Route
-                        path="/admin/employees"
-                        element={
-                            <RoleBasedRoute allowedRoles={[1]}>
-                                <EmployeeListPage />
+                                <AdminUserList />
                             </RoleBasedRoute>
                         }
                     />

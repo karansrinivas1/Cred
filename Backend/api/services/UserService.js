@@ -55,4 +55,29 @@ async function editUserByUsername(username, updatedData) {
   return user;
 }
 
-module.exports = { registerUser, loginUser, getUserByUsername, editUserByUsername };
+async function getAllUsersFromDb() {
+  try {
+    const users = await User.find(); // Fetch all users from DB
+    return users;
+  } catch (error) {
+    throw new Error('Failed to fetch users');
+  }
+}
+
+async function deleteUserByUsername(userId) {
+  try {
+      // Find and delete the user by their ID
+      const user = await User.findByIdAndDelete(userId);
+      
+      if (!user) {
+          throw new Error('User not found');
+      }
+      
+      return user;  // Return the deleted user information
+  } catch (error) {
+      throw new Error('Error deleting user: ' + error.message);
+  }
+}
+
+
+module.exports = { registerUser, loginUser, getUserByUsername, editUserByUsername,getAllUsersFromDb,deleteUserByUsername };

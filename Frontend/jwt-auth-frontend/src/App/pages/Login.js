@@ -50,9 +50,9 @@ const Login = () => {
 
             // Redirect based on user role
             if (userType === 2) {
-                navigate('/'); // Redirect employee to Job Listings
+                navigate('/admin/user'); // Redirect employee to Job Listings
             } else if (userType === 1) {
-                navigate('/admin/employees'); // Redirect admin to Employee List
+                navigate('/admin/user'); // Redirect admin to Employee List
             } else {
                 throw new Error('Invalid user type');
             }

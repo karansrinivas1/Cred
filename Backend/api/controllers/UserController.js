@@ -1,4 +1,4 @@
-const { registerUser, loginUser, getUserByUsername, editUserByUsername } = require('../services/UserService');
+const { registerUser, loginUser, getUserByUsername, editUserByUsername, deleteUserByUsername, getAllUsersFromDb } = require('../services/UserService');
 
 // Handle user registration
 async function register(req, res) {
@@ -45,4 +45,42 @@ async function editUser(req, res) {
   }
 }
 
-module.exports = { register, login, getUser, editUser };
+// Delete user by username
+async function deleteUser(req, res) {
+  try {
+    const username = req.params.username;
+    const deletedUser = await deleteUserByUsername(username);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User deleted successfully', deletedUser });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// Get all users
+async function getAllUsers(req, res) {
+  try {
+    const users = await getAllUsersFromDb();
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+
+    res.json({ users });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { 
+  register, 
+  login, 
+  getUser, 
+  editUser, 
+  deleteUser, 
+  getAllUsers 
+};
