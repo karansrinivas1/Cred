@@ -49,10 +49,10 @@ const Login = () => {
             );
 
             // Redirect based on user role
-            if (userType === 2) {
-                navigate('/admin/user'); // Redirect employee to Job Listings
-            } else if (userType === 1) {
-                navigate('/admin/user'); // Redirect admin to Employee List
+            if (userType === 1) {
+                navigate('/admin/user'); // Redirect employee to admin user place
+            } else if (userType === 2) {
+                navigate('/'); // Redirect to home page
             } else {
                 throw new Error('Invalid user type');
             }

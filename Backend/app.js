@@ -32,7 +32,7 @@ app.use(express.json());
 
 // Routes
 app.use('/user', userRoutes);  // User-related routes
-app.use('/api', forgotPasswordRoutes); // Forgot password route
+app.use('/user', forgotPasswordRoutes); // Forgot password route
 app.use('/api', ResetPasswordRoutes); // Forgot password route
 app.use('/api/credit-cards', creditCardRoutes);
 app.use('/api/', transactionRoutes); // Transactions-related routes

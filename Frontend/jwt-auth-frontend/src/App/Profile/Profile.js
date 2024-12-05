@@ -32,7 +32,7 @@ const AboutPage = () => {
           lastName,
           username,
           email,
-          userType: 1, // Ensuring the userType is set to 1 but hidden in the UI
+          userType: 2, // Ensuring the userType is set to 1 but hidden in the UI
         });
         setLoading(false);  // Set loading to false after data is fetched
       } catch (err) {
